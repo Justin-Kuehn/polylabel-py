@@ -1,5 +1,5 @@
 """python port of polylabel algorithm found here: https://github.com/mapbox/polylabel"""
-from Queue import PriorityQueue
+from queue import PriorityQueue
 from math import sqrt
 
 SQRT2 = 1.414213562
@@ -75,6 +75,8 @@ class Cell(object):
         self.dist = point_to_polygon_dist(x, y, polygon)
         self.max = self.dist + self.half * SQRT2
 
+    def __lt__(self, other):
+        return self.max < other.max
 
 def point_to_polygon_dist(x, y, polygon):
     """point to polygon dist"""
@@ -140,4 +142,4 @@ def get_seg_dist_sq(px, py, p1, p2):
 
 def rotate(arr, x):
     """rotate an array by x"""
-    return arr[-x:] + arr[:-x]
+    return list(arr[-x:]) + list(arr[:-x])
